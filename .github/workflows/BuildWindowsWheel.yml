@@ -9,7 +9,7 @@ concurrency:
 
 jobs:
   build-wheel:
-    name: py311-torch271-cuda118-win
+    name: py311-torch271-cu118-win
     runs-on: windows-latest
 
     env:
@@ -41,19 +41,15 @@ jobs:
         with:
           cuda-version: "11.8.0"
 
-      - name: Upgrade pip
+      - name: Install build tools
         run: |
-          python -m pip install --upgrade pip setuptools wheel build
+          python -m pip install --upgrade pip
+          pip install setuptools wheel build
+          pip install scikit-build-core cmake ninja pybind11
 
       - name: Install PyTorch 2.7.1 CUDA 11.8
         run: |
           pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cu118
-
-      - name: Install project build dependencies
-        run: |
-          pip install -r requirements.txt
-        shell: pwsh
-        continue-on-error: true
 
       - name: Build wheel
         run: |
