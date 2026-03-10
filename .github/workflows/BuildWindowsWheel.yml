@@ -44,6 +44,7 @@ jobs:
           conda install -y -c conda-forge \
             eigen \
             ceres-solver \
+            metis \
             dispenso \
             cmake \
             ninja
@@ -57,7 +58,7 @@ jobs:
       - name: Install Python build tools
         shell: bash -el {0}
         run: |
-          pip install build scikit-build-core pybind11 cmake ninja
+          pip install build scikit-build-core pybind11
 
       - name: Build PyMomentum Wheel
         shell: bash -el {0}
