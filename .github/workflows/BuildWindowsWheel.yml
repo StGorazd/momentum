@@ -54,10 +54,17 @@ jobs:
           cache: true
           cache-write: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
 
-      - name: Build PyMomentum Wheel
+      - name: Install Python build tools
         shell: bash -el {0}
         run: |
-          python -m build --wheel --outdir dist/
+          pip install build scikit-build-core
+
+      - name: Build PyMomentum Wheel
+        shell: bash -el {0}
+        env:
+          CMAKE_PREFIX_PATH: ${{ env.CONDA_PREFIX }}
+        run: |
+          python -m build --wheel --no-isolation --outdir dist/
 
       - name: Upload wheel artifact
         uses: actions/upload-artifact@v4
