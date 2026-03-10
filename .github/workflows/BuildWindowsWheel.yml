@@ -54,6 +54,8 @@ jobs:
             indicators \
             openfbx \
             drjit-cpp \
+            librerun-sdk \
+            arrow-cpp \
             cmake \
             ninja
 
@@ -73,7 +75,7 @@ jobs:
         run: |
           export CMAKE_PREFIX_PATH="$CONDA_PREFIX"
           export PATH="$CONDA_PREFIX/Library/bin:$CONDA_PREFIX/bin:$PATH"
-          export SKBUILD_CMAKE_ARGS="-DMOMENTUM_BUILD_RENDERER=OFF;-DMOMENTUM_BUILD_TESTING=OFF"
+          export SKBUILD_CMAKE_ARGS="-DMOMENTUM_BUILD_TESTING=OFF;-DRERUN_DOWNLOAD_AND_BUILD_ARROW=OFF;-DMOMENTUM_USE_SYSTEM_RERUN_CPP_SDK=ON"
           python -m build --wheel --no-isolation --outdir dist/
 
       - name: Upload wheel artifact
