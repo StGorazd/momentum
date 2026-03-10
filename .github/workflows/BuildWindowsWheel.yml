@@ -57,13 +57,12 @@ jobs:
       - name: Install Python build tools
         shell: bash -el {0}
         run: |
-          pip install build scikit-build-core
+          pip install build scikit-build-core pybind11 cmake ninja
 
       - name: Build PyMomentum Wheel
         shell: bash -el {0}
-        env:
-          CMAKE_PREFIX_PATH: ${{ env.CONDA_PREFIX }}
         run: |
+          export CMAKE_PREFIX_PATH="$CONDA_PREFIX"
           python -m build --wheel --no-isolation --outdir dist/
 
       - name: Upload wheel artifact
