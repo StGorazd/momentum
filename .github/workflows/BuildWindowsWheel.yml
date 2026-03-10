@@ -45,8 +45,20 @@ jobs:
             eigen \
             ceres-solver \
             metis \
+            cli11 \
             dispenso \
-            cmake \
+            fmt \
+            nlohmann_json \
+            ms-gsl \
+            spdlog \
+            re2 \
+            zlib \
+            openssl \
+            urdfdom \
+            ezc3d \
+            fx-gltf \
+            indicators \
+            openfbx \
             ninja
 
       - name: Set up pixi (for C++ deps only)
