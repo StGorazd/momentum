@@ -32,12 +32,6 @@ jobs:
           activate-environment: pymomentum-build
           auto-activate-base: false
 
-      - name: Install PyTorch 2.7.1 + CUDA 11.8
-        shell: bash -el {0}
-        run: |
-          pip install torch==2.7.1+cu118 torchvision torchaudio \
-            --index-url https://download.pytorch.org/whl/cu118
-
       - name: Install build dependencies via conda
         shell: bash -el {0}
         run: |
@@ -59,13 +53,14 @@ jobs:
             fx-gltf \
             indicators \
             openfbx \
+            cmake \
             ninja
 
-      - name: Set up pixi (for C++ deps only)
-        uses: prefix-dev/setup-pixi@v0.9.3
-        with:
-          cache: true
-          cache-write: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      - name: Install PyTorch 2.7.1 + CUDA 11.8
+        shell: bash -el {0}
+        run: |
+          pip install torch==2.7.1+cu118 torchvision torchaudio \
+            --index-url https://download.pytorch.org/whl/cu118
 
       - name: Install Python build tools
         shell: bash -el {0}
@@ -76,6 +71,8 @@ jobs:
         shell: bash -el {0}
         run: |
           export CMAKE_PREFIX_PATH="$CONDA_PREFIX"
+          export PATH="$CONDA_PREFIX/Library/bin:$CONDA_PREFIX/bin:$PATH"
+          cmake --version  # verify correct cmake is used
           python -m build --wheel --no-isolation --outdir dist/
 
       - name: Upload wheel artifact
