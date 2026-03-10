@@ -56,6 +56,7 @@ jobs:
             drjit-cpp \
             librerun-sdk \
             arrow-cpp \
+            kokkos \
             cmake \
             ninja
 
@@ -75,7 +76,7 @@ jobs:
         run: |
           export CMAKE_PREFIX_PATH="$CONDA_PREFIX"
           export PATH="$CONDA_PREFIX/Library/bin:$CONDA_PREFIX/bin:$PATH"
-          export SKBUILD_CMAKE_ARGS="-DMOMENTUM_BUILD_TESTING=OFF;-DRERUN_DOWNLOAD_AND_BUILD_ARROW=OFF;-DMOMENTUM_USE_SYSTEM_RERUN_CPP_SDK=ON"
+          export SKBUILD_CMAKE_ARGS="-DMOMENTUM_BUILD_PYMOMENTUM=ON;-DBUILD_SHARED_LIBS=OFF;-DMOMENTUM_BUILD_TESTING=OFF;-DRERUN_DOWNLOAD_AND_BUILD_ARROW=OFF;-DMOMENTUM_USE_SYSTEM_RERUN_CPP_SDK=ON"
           python -m build --wheel --no-isolation --outdir dist/
 
       - name: Upload wheel artifact
