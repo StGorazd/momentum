@@ -38,11 +38,15 @@ jobs:
           pip install torch==2.7.1+cu118 torchvision torchaudio \
             --index-url https://download.pytorch.org/whl/cu118
 
-      - name: Install build dependencies
+      - name: Install build dependencies via conda
         shell: bash -el {0}
         run: |
-          conda install -y cmake ninja
-          pip install build wheel setuptools
+          conda install -y -c conda-forge \
+            eigen \
+            ceres-solver \
+            dispenso \
+            cmake \
+            ninja
 
       - name: Set up pixi (for C++ deps only)
         uses: prefix-dev/setup-pixi@v0.9.3
