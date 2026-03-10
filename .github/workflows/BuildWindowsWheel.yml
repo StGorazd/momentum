@@ -59,7 +59,7 @@ jobs:
 
       - name: Install native dependencies
         run: |
-          C:\vcpkg\vcpkg install ceres[suitesparse]:x64-windows cli11:x64-windows
+          C:\vcpkg\vcpkg install ceres[suitesparse]:x64-windows cli11:x64-windows dispenso:x64-windows
 
       - name: Build wheel
         shell: pwsh
