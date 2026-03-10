@@ -53,6 +53,7 @@ jobs:
             fx-gltf \
             indicators \
             openfbx \
+            drjit-cpp \
             cmake \
             ninja
 
@@ -72,8 +73,8 @@ jobs:
         run: |
           export CMAKE_PREFIX_PATH="$CONDA_PREFIX"
           export PATH="$CONDA_PREFIX/Library/bin:$CONDA_PREFIX/bin:$PATH"
-          python -m build --wheel --no-isolation --outdir dist/ \
-            --config-setting=cmake.args="-DMOMENTUM_BUILD_RENDERER=OFF"
+          export SKBUILD_CMAKE_ARGS="-DMOMENTUM_BUILD_RENDERER=OFF;-DMOMENTUM_BUILD_TESTING=OFF"
+          python -m build --wheel --no-isolation --outdir dist/
 
       - name: Upload wheel artifact
         uses: actions/upload-artifact@v4
